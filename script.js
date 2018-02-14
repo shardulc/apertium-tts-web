@@ -1,3 +1,4 @@
+var apy = 'http://localhost:2737';
 var currentAudioUrl;
 var loadables = document.getElementsByClassName('loadable');
 var aboutModal = document.getElementById('aboutModalContainer');
@@ -5,8 +6,8 @@ var aboutModal = document.getElementById('aboutModalContainer');
 function loadAudio() {
     document.getElementById('loadingCircle').classList.remove('hidden');
     var xhr = new XMLHttpRequest();
-    var audio = document.getElementById('audioElement') || new Audio();
-    var url = 'http://localhost:2737/tts?lang=eng&q=hello';
+    var audio = document.getElementById('audioElement');
+    var url = apy + '/tts?lang=eng&q=' + document.getElementById('input').value;
 
     xhr.open('GET', encodeURI(url), true);
     xhr.setRequestHeader('Content-Type', 'application/json');
