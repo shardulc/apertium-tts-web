@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
+    <meta charset="utf-8"/>
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">
+
+    <title>Apertium Text-to-Speech</title>
+</head>
+<body>
+    <div id="headerBar">
+        <div id="headerItemContainer">
+            <div id="headerItems">
+                <img src="./img/logo.png" alt="Apertium Logo" id="logo"/>
+                <div id="title">
+                    <span class="titleText">Apertium</span>
+                    <span class="titleText">Text-to-Speech</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <span id="intro">Some intro text</span>
+        <select id="lang" class="roundEdges">
+            <option>English</option>
+            <option>Chuvash</option>
+        </select>
+        <textarea id="input" class="roundEdges" oninput="disableAudio()"></textarea>
+
+        <div id="audio">
+            <button type="button" class="roundEdges" onclick="loadAudio()" id="listen">Listen</button>
+            <img src="./img/loading.gif" alt="loading" id="loadingCircle" class="hidden"/>
+            <audio id="audioElement" controls class="loadable hidden roundEdges"></audio>
+            <a id="download" class="loadable hidden"><img src="./img/download.png" alt="Download" class="roundEdges"/></a>
+        </div>
+
+        <button id="about" class="roundEdges" onclick="showAboutModal()">About</button>
+        <div id="aboutModalContainer" class="hidden">
+            <div id="aboutModal" class="roundEdges">
+                <div id="aboutHeader">
+                    <span>About</span>
+                    <span id="closeModal" onclick="hideAboutModal()">&times;</span>
+                </div>
+                <span>About text</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
