@@ -3,14 +3,16 @@ var currentAudioUrl;
 var loadables = document.getElementsByClassName('loadable');
 var aboutModal = document.getElementById('aboutModalContainer');
 
+var langs;
+
 function loadAudio() {
     document.getElementById('loadingCircle').classList.remove('hidden');
     var xhr = new XMLHttpRequest();
     var audio = document.getElementById('audioElement');
-    var url = apy + '?lang=eng&q=' + document.getElementById('input').value;
+    var url = apy + '/tts?lang=chv&q=' + document.getElementById('input').value;
 
     xhr.open('GET', encodeURI(url), true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.responseType = 'blob';
     xhr.onload = function(evt) {
         document.getElementById('loadingCircle').classList.add('hidden');

@@ -4,6 +4,7 @@ from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 from urlparse import urlparse, parse_qs
 from shlex import split
 from subprocess import Popen
+from json import dump
 
 HOST = "localhost"
 PORT = 2738
@@ -13,13 +14,12 @@ tts_models = {
 }
 
 class TTSRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        params = parse_qs(urlparse(self.path))
-        
+
+    def handle_tts(self, params):
         if 'lang' not in params:
             self.send_error(400, 'Missing lang parameter, e.g. lang=chv')
             return
-        lang = params['lang']
+        lang = params['lang'][0]
         if lang not in tts_models:
             self.send_error(501, 'That language is not supported')
             return
@@ -27,12 +27,12 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
         if 'q' not in params:
             self.send_error(400, 'Missing q parameter, e.g. q=cалам')
             return
-        q = params['q']
+        q = params['q'][0]
 
         synth_file = NamedTemporaryFile()
         input_file = NamedTemporaryFile()
         proc = Popen(split(tts_models[lang] % (synth_file.name, input_file.name)))
-        
+
         input_file.write(q)
         input_file.close()
 
@@ -46,6 +46,21 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
                 break
             self.wfile.write(data)
         synth_file.close()
+
+    def handle_list(self):
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        dump({'langs': tts_models.keys()}, self.wfile)
+
+    def do_GET(self):
+        req = urlparse(self.path)
+        if req.path == '/tts':
+            self.handle_tts(parse_qs(req.query))
+        elif req.path == '/list':
+            self.handle_list()
+        else:
+            self.send_error(404, 'Endpoints are /tts and /list')
 
 if __name__ == '__main__':
     httpd = HTTPServer((HOST, PORT), TTSRequestHandler)
