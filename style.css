@@ -30,9 +30,9 @@ body {
 }
 
 button {
-    appearance: none;
-    -moz-appearance: none;
     -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
     background-color: #dcdcdc;
     border: none;
     -webkit-box-shadow: unset;
@@ -42,9 +42,9 @@ button {
 }
 
 select {
-    appearance: none;
-    -moz-appearance: none;
     -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
     background-color: #dcdcdc;
     background-image: url("./img/arrow_black.png");
     background-position: right 8px center;
@@ -195,7 +195,8 @@ select:hover, select:active {
 
 #input {
     border: 1px solid #cccccc;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     font-family: inherit;
     margin-bottom: 12px;
     min-height: 200px;
@@ -256,8 +257,14 @@ select:hover, select:active {
 }
 
 #footer {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     margin-top: auto;
     width: 100%;
 }
@@ -298,10 +305,10 @@ select:hover, select:active {
 }
 
 #aboutHeader {
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+        -ms-flex-align: end;
+            align-items: flex-end;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

@@ -49,6 +49,7 @@ function getTextLangs() {
                 var opt = document.createElement('option');
                 opt.appendChild(document.createTextNode(strings[pageLang][lang]));
                 opt.setAttribute('data-text', lang);
+                opt.classList.add('localizable');
                 select.appendChild(opt);
             }
         }
