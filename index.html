@@ -1,11 +1,17 @@
+<!--
+index.html
+HTML for the front end of Apertium TTS Web. See README for usage details, and
+see LICENSE for license details (GPLv3+).
+Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
+-->
 <!DOCTYPE html>
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="./style.css">
-    <script src="./script.js"></script>
     <meta charset="utf-8"/>
-    <link rel="shortcut icon" href="./img/favicon.ico">
+    <link type="text/css" href="./style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">
+    <link href="./img/favicon.ico" rel="shortcut icon">
+    <script src="./script.js"></script>
 
     <title>Apertium Text-to-Speech</title>
 </head>
@@ -33,7 +39,9 @@
             <button type="button" class="roundEdges" onclick="loadAudio()" id="listen">Listen</button>
             <img src="./img/loading.gif" alt="loading" id="loadingCircle" class="hidden"/>
             <audio id="audioElement" controls class="loadable hidden roundEdges"></audio>
-            <a id="download" class="loadable hidden"><img src="./img/download.png" alt="Download" class="roundEdges"/></a>
+            <a id="download" class="loadable hidden">
+                <img src="./img/download.png" alt="Download" class="roundEdges"/>
+            </a>
         </div>
 
         <button id="about" class="roundEdges" onclick="showAboutModal()">About</button>

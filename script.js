@@ -1,9 +1,14 @@
+/**
+ * script.js
+ * JavaScript for the front end of Apertium TTS Web. See README for usage
+ * details, and see LICENSE for license details (GPLv3+).
+ * Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
+ */
+
 var apy = 'http://yukari.default.ftyers.uk0.bigv.io:2738';
 var currentAudioUrl;
 var loadables = document.getElementsByClassName('loadable');
 var aboutModal = document.getElementById('aboutModalContainer');
-
-var langs;
 
 function loadAudio() {
     document.getElementById('loadingCircle').classList.remove('hidden');
@@ -15,7 +20,7 @@ function loadAudio() {
     xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.responseType = 'blob';
     xhr.onreadystatechange = function(evt) {
-	if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             document.getElementById('loadingCircle').classList.add('hidden');
             var blob = new Blob([xhr.response], {type: 'audio/wav'});
             if (currentAudioUrl !== undefined) {
@@ -25,7 +30,7 @@ function loadAudio() {
             audio.src = currentAudioUrl;
             document.getElementById('download').href = currentAudioUrl;
             enableAudio();
-	}
+        }
     };
     xhr.send();
 }

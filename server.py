@@ -1,17 +1,35 @@
+#!/usr/bin/env python
 # coding=utf-8
-from tempfile import NamedTemporaryFile
+
+# server.py
+# The back end of Apertium TTS Web. See README for usage details, and see
+# LICENSE for license details (GPLv3+).
+# Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
+
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from urlparse import urlparse, parse_qs
+from json import dump
+from os import remove
 from shlex import split
 from subprocess import Popen
-from json import dump
+from tempfile import NamedTemporaryFile
+from urlparse import urlparse, parse_qs
+
 
 HOST = "0.0.0.0"
 PORT = 2738
 
 tts_models = {
-    'chv': 'python /home/ossian/Ossian/scripts/speak.py -l chv -s news -o %s naive_01_nn %s'
+    'chv': 'python /home/ossian/Ossian/scripts/speak.py -l chv -s news -o {0} naive_01_nn {1}',
+    'zzz': 'cat /home/ossian/public_html/chuvash_test3.wav > {0}'
 }
+
+lang_names = {
+    'eng': {
+        'chv': 'Chuvash',
+        'zzz': 'Dummy'
+    }
+}
+
 
 class TTSRequestHandler(BaseHTTPRequestHandler):
 
@@ -25,15 +43,14 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
             return
 
         if 'q' not in params:
-            self.send_error(400, 'Missing q parameter, e.g. q=cалам')
+            self.send_error(400, 'Missing q parameter, e.g. q=c\u0430\u043\u0430\u043c')
             return
         q = params['q'][0]
 
         synth_file = NamedTemporaryFile()
         input_file = NamedTemporaryFile(delete=False)
         input_file.write(q)
-        proc = Popen(split(tts_models[lang] % (synth_file.name, input_file.name)))
-
+        proc = Popen(split(tts_models[lang].format(synth_file.name, input_file.name)))
         input_file.close()
 
         self.send_response(200)
@@ -41,21 +58,31 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
         self.send_header('Content-Disposition', 'attachment; filename=tts.wav')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        
+
         data = None
         while not data:
             data = synth_file.read(16384)
         while data:
             self.wfile.write(data)
             data = synth_file.read(16384)
+
         synth_file.close()
+        remove(input_file.name)
 
     def handle_list(self):
+        if 'lang' not in params:
+            self.send_error(400, 'Missing lang parameter, e.g. lang=eng')
+            return
+        lang = params['lang'][0]
+        if lang not in lang_names:
+            self.send_error(501, 'That language is not supported')
+            return
+
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        dump({'langs': tts_models.keys()}, self.wfile)
+        dump(lang_names[lang], self.wfile)
 
     def do_GET(self):
         req = urlparse(self.path)
@@ -65,6 +92,7 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
             self.handle_list()
         else:
             self.send_error(404, 'Endpoints are /tts and /list')
+
 
 if __name__ == '__main__':
     httpd = HTTPServer((HOST, PORT), TTSRequestHandler)
