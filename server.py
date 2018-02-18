@@ -6,7 +6,7 @@ from shlex import split
 from subprocess import Popen
 from json import dump
 
-HOST = "localhost"
+HOST = "0.0.0.0"
 PORT = 2738
 
 tts_models = {
@@ -30,26 +30,30 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
         q = params['q'][0]
 
         synth_file = NamedTemporaryFile()
-        input_file = NamedTemporaryFile()
+        input_file = NamedTemporaryFile(delete=False)
+        input_file.write(q)
         proc = Popen(split(tts_models[lang] % (synth_file.name, input_file.name)))
 
-        input_file.write(q)
         input_file.close()
 
         self.send_response(200)
         self.send_header('Content-Type', 'audio/wav')
         self.send_header('Content-Disposition', 'attachment; filename=tts.wav')
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        while True:
+        
+        data = None
+        while not data:
             data = synth_file.read(16384)
-            if not data:
-                break
+        while data:
             self.wfile.write(data)
+            data = synth_file.read(16384)
         synth_file.close()
 
     def handle_list(self):
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         dump({'langs': tts_models.keys()}, self.wfile)
 

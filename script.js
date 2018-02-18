@@ -1,4 +1,4 @@
-var apy = 'http://localhost:2738';
+var apy = 'http://yukari.default.ftyers.uk0.bigv.io:2738';
 var currentAudioUrl;
 var loadables = document.getElementsByClassName('loadable');
 var aboutModal = document.getElementById('aboutModalContainer');
@@ -14,16 +14,18 @@ function loadAudio() {
     xhr.open('GET', encodeURI(url), true);
     xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.responseType = 'blob';
-    xhr.onload = function(evt) {
-        document.getElementById('loadingCircle').classList.add('hidden');
-        var blob = new Blob([xhr.response], {type: 'audio/wav'});
-        if (currentAudioUrl !== undefined) {
-            URL.revokeObjectURL(currentAudioUrl);
-        }
-        var currentAudioUrl = URL.createObjectURL(blob);
-        audio.src = currentAudioUrl;
-        document.getElementById('download').href = currentAudioUrl;
-        enableAudio();
+    xhr.onreadystatechange = function(evt) {
+	if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            document.getElementById('loadingCircle').classList.add('hidden');
+            var blob = new Blob([xhr.response], {type: 'audio/wav'});
+            if (currentAudioUrl !== undefined) {
+                URL.revokeObjectURL(currentAudioUrl);
+            }
+            var currentAudioUrl = URL.createObjectURL(blob);
+            audio.src = currentAudioUrl;
+            document.getElementById('download').href = currentAudioUrl;
+            enableAudio();
+	}
     };
     xhr.send();
 }
