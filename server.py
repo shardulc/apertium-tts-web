@@ -6,13 +6,13 @@
 # LICENSE for license details (GPLv3+).
 # Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
 
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from json import dump
-from os import remove
+from os import devnull, remove
 from shlex import split
 from subprocess import Popen
 from tempfile import NamedTemporaryFile
-from urlparse import urlparse, parse_qs
+from urlparse import parse_qs, urlparse
 
 
 HOST = "0.0.0.0"
@@ -49,9 +49,11 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
 
         synth_file = NamedTemporaryFile()
         input_file = NamedTemporaryFile(delete=False)
+        null = open(devnull, 'w')
         input_file.write(q)
-        proc = Popen(split(tts_models[lang].format(synth_file.name, input_file.name)))
+        Popen(split(tts_models[lang].format(synth_file.name, input_file.name)), stdout=null)
         input_file.close()
+        null.close()
 
         self.send_response(200)
         self.send_header('Content-Type', 'audio/wav')
