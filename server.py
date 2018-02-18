@@ -23,6 +23,16 @@ tts_models = {
     'zzz': 'cp /home/ossian/public_html/chuvash_test3.wav {0}'
 }
 
+sanitizers = {
+    'chv': {
+        'ӑ': ['ă', 'ǎ'],
+        'ӗ': ['ĕ', 'ě'],
+        'ӳ': ['ÿ'],
+        'ҫ': ['ç']
+    },
+    'zzz': {}
+}
+
 lang_names = {
     'eng': {
         'chv': 'Chuvash',
@@ -43,9 +53,12 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
             return
 
         if 'q' not in params:
-            self.send_error(400, 'Missing q parameter, e.g. q=c\u0430\u043\u0430\u043c')
+            self.send_error(400, u'Missing q parameter, e.g. q=c\u0430\u043\u0430\u043c')
             return
         q = params['q'][0]
+        for clean in sanitizers[lang]:
+            for dirty in sanitizers[lang][clean]:
+                q.replace(dirty, clean)
 
         synth_file = NamedTemporaryFile()
         input_file = NamedTemporaryFile(delete=False)
