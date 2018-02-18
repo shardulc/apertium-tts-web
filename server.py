@@ -55,7 +55,7 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
 
         synth_file = NamedTemporaryFile()
         input_file = NamedTemporaryFile(delete=False)
-        input_file.write(q)
+        input_file.write(q.encode('utf-8'))
         Popen(split(tts_models[lang].format(synth_file.name, input_file.name)))
         input_file.close()
 
