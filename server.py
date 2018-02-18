@@ -20,7 +20,7 @@ PORT = 2738
 
 tts_models = {
     'chv': 'python /home/ossian/Ossian/scripts/speak.py -l chv -s news -o {0} naive_01_nn {1}',
-    'zzz': 'cat /home/ossian/public_html/chuvash_test3.wav > {0}'
+    'zzz': 'cp /home/ossian/public_html/chuvash_test3.wav {0}'
 }
 
 lang_names = {

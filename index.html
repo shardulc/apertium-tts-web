@@ -29,15 +29,17 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
     </div>
     <div id="content">
         <span id="intro">Some intro text</span>
+        <!-- dropdown is updated in script.js -->
         <select id="lang" class="roundEdges">
-            <option>English</option>
-            <option>Chuvash</option>
+            <option id="zzz">Dummy</option>
+            <option id="chv">Chuvash</option>
         </select>
         <textarea id="input" class="roundEdges" oninput="disableAudio()"></textarea>
 
         <div id="audio">
             <button type="button" class="roundEdges" onclick="loadAudio()" id="listen">Listen</button>
             <img src="./img/loading.gif" alt="loading" id="loadingCircle" class="hidden"/>
+            <!-- audio element is updated in script.js -->
             <audio id="audioElement" controls class="loadable hidden roundEdges"></audio>
             <a id="download" class="loadable hidden">
                 <img src="./img/download.png" alt="Download" class="roundEdges"/>

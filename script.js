@@ -10,11 +10,35 @@ var currentAudioUrl;
 var loadables = document.getElementsByClassName('loadable');
 var aboutModal = document.getElementById('aboutModalContainer');
 
+var langs;
+window.onload = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', encodeURI(apy + '/list?lang=eng'), true);
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            langs = JSON.parse(xhr.responseText);
+            var select = document.getElementById('lang');
+            while(select.firstChild) {
+                select.removeChild(select.lastChild);
+            }
+            for (var lang in langs) {
+                var opt = document.createElement("option");
+                opt.appendChild(document.createTextNode(langs[lang]));
+                opt.setAttribute("id", lang);
+                select.appendChild(opt);
+            }
+        }
+    }
+    xhr.send();
+}
+
 function loadAudio() {
     document.getElementById('loadingCircle').classList.remove('hidden');
     var xhr = new XMLHttpRequest();
     var audio = document.getElementById('audioElement');
-    var url = apy + '/tts?lang=chv&q=' + document.getElementById('input').value;
+    var select = document.getElementById('lang');
+    var lang = select.options[select.selectedIndex].id;
+    var url = apy + '/tts?lang=' + lang + '&q=' + document.getElementById('input').value;
 
     xhr.open('GET', encodeURI(url), true);
     xhr.setRequestHeader('Content-Type', 'text/plain');
