@@ -130,12 +130,6 @@ body {
     width: 100%;
 }
 
-#intro {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 14px;
-}
-
 #lang {
     margin-bottom: 12px;
     min-height: 30px;
@@ -175,16 +169,17 @@ body {
     -webkit-flex-flow: row wrap;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
+    height: 28px;
     -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
         -ms-flex-pack: end;
             justify-content: flex-end;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
     width: 100%;
 }
 
 #audioElement {
-    height: 28px;
+    height: 100%;
     margin: 0 5px 12px 5px;
     max-width: 350px;
     width: 90%;
