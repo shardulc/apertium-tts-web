@@ -36,6 +36,21 @@ sanitizers = {
 
 class TTSRequestHandler(BaseHTTPRequestHandler):
 
+    # override https://github.com/python/cpython/blob/master/Lib/http/server.py#L492
+    # because latin-1 --> utf-8 <sigh>
+    def send_response_only(self, code, message=None):
+        """Send the response header only."""
+        if self.request_version != 'HTTP/0.9':
+            if message is None:
+                if code in self.responses:
+                    message = self.responses[code][0]
+                else:
+                    message = ''
+            if not hasattr(self, '_headers_buffer'):
+                self._headers_buffer = []
+            self._headers_buffer.append(("%s %d %s\r\n" %
+                    (self.protocol_version, code, message)).encode('utf-8'))
+
     def handle_tts(self, params):
         if 'lang' not in params:
             self.send_error(400, 'Missing lang parameter, e.g. lang=chv')

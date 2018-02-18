@@ -5,7 +5,7 @@
  * Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
  */
 
-var apy = 'http://yukari.default.ftyers.uk0.bigv.io:2738';
+var server = 'http://yukari.default.ftyers.uk0.bigv.io:2738';
 var currentAudioUrl;
 var loadables = document.getElementsByClassName('loadable');
 var aboutModal = document.getElementById('aboutModalContainer');
@@ -48,7 +48,7 @@ window.onload = function() {
 
 function getTextLangs() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', encodeURI(apy + '/list'), true);
+    xhr.open('GET', encodeURI(server + '/list'), true);
     xhr.onreadystatechange = function() {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             var textLangs = JSON.parse(xhr.responseText);
@@ -87,7 +87,7 @@ function loadAudio() {
     var audio = document.getElementById('audioElement');
     var select = document.getElementById('textLangs');
     var lang = select.options[select.selectedIndex].getAttribute('data-text');
-    var url = apy + '/tts?lang=' + lang + '&q=' + document.getElementById('input').value;
+    var url = server + '/tts?lang=' + lang + '&q=' + document.getElementById('input').value;
 
     xhr.open('GET', encodeURI(url), true);
     xhr.setRequestHeader('Content-Type', 'text/plain');
