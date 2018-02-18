@@ -18,6 +18,7 @@ var strings = {
         'Text-to-Speech': 'Text-to-Speech',
         'chv': 'Chuvash',
         'eng': 'English',
+        'mar': 'Marathi',
         'Listen': 'Listen',
         'About': 'About',
         'AboutText':
@@ -28,6 +29,16 @@ var strings = {
     'chv': {
         'chv': 'Чӑвашла',
         'Listen': 'Итле'
+    },
+    'mar': {
+        'Apertium Text-to-Speech': 'अपर्टियम ई-वाचा',
+        'Apertium': 'अपर्टियम',
+        'Text-to-Speech': 'ई-वाचा',
+        'chv': 'चुवाश',
+        'eng': 'इंग्रजी',
+        'mar': 'मराठी',
+        'Listen': 'ऐका',
+        'About': 'माहिती'
     }
 }
 
