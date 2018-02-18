@@ -36,8 +36,8 @@ endpoint requires the parameters `lang`, which is the [ISO 693-3 code][1] of the
 input text language, and `q`, which is the input text itself. The response
 (which may take some time) is a WAV audio file served as binary data with the
 headers:
-  * `Content-Type: audio/wav`
-  * `Content-Disposition: attachment; filename=tts.wav`
+   * `Content-Type: audio/wav`
+   * `Content-Disposition: attachment; filename=tts.wav`
 
 The server tries to include appropriate error messages when it responds with a
 4xx or 5xx status code.
