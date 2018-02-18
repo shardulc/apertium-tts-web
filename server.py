@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding=utf-8
 
 # server.py
@@ -6,21 +6,21 @@
 # LICENSE for license details (GPLv3+).
 # Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
 
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import dump
 from os import remove
 from shlex import split
 from subprocess import Popen
 from tempfile import NamedTemporaryFile
-from urlparse import parse_qs, urlparse
+from urllib.parse import parse_qs, urlparse
 
 
 HOST = "0.0.0.0"
 PORT = 2738
 
 tts_models = {
-    'chv': 'python /home/ossian/Ossian/scripts/speak.py -l chv -s news -o {0} naive_01_nn {1}',
-    'zzz': 'cp /home/ossian/public_html/chuvash_test3.wav {0}'
+    'chv': 'python2.7 ./Ossian/scripts/speak.py -l chv -s news -o {0} naive_01_nn {1}',
+    'zzz': 'cp ./chuvash_test3.wav {0}'
 }
 
 sanitizers = {
@@ -53,7 +53,7 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
             return
 
         if 'q' not in params:
-            self.send_error(400, 'Missing q parameter (input text)')
+            self.send_error(400, 'Missing q parameter, e.g. q=салам')
             return
         q = params['q'][0]
         for clean in sanitizers[lang]:
