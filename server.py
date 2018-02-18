@@ -53,7 +53,7 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
             return
 
         if 'q' not in params:
-            self.send_error(400, u'Missing q parameter, e.g. q=c\u0430\u043\u0430\u043c')
+            self.send_error(400, 'Missing q parameter (input text)')
             return
         q = params['q'][0]
         for clean in sanitizers[lang]:
