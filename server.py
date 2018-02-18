@@ -36,7 +36,7 @@ sanitizers = {
 lang_names = {
     'eng': {
         'chv': 'Chuvash',
-        'zzz': 'Dummy'
+#        'zzz': 'Dummy'  # uncomment for dummy audio testing
     }
 }
 

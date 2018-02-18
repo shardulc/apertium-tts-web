@@ -22,9 +22,9 @@ window.onload = function() {
                 select.removeChild(select.lastChild);
             }
             for (var lang in langs) {
-                var opt = document.createElement("option");
+                var opt = document.createElement('option');
                 opt.appendChild(document.createTextNode(langs[lang]));
-                opt.setAttribute("id", lang);
+                opt.setAttribute('id', lang);
                 select.appendChild(opt);
             }
         }
