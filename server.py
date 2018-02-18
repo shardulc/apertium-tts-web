@@ -8,7 +8,7 @@
 
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from json import dump
-from os import devnull, remove
+from os import remove
 from shlex import split
 from subprocess import Popen
 from tempfile import NamedTemporaryFile
@@ -49,11 +49,9 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
 
         synth_file = NamedTemporaryFile()
         input_file = NamedTemporaryFile(delete=False)
-        null = open(devnull, 'w')
         input_file.write(q)
-        Popen(split(tts_models[lang].format(synth_file.name, input_file.name)), stdout=null)
+        Popen(split(tts_models[lang].format(synth_file.name, input_file.name)))
         input_file.close()
-        null.close()
 
         self.send_response(200)
         self.send_header('Content-Type', 'audio/wav')
