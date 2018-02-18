@@ -14,7 +14,7 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
     <link href="./img/favicon.ico" rel="shortcut icon">
     <script src="./script.js"></script>
 
-    <title>Apertium Text-to-Speech</title>
+    <title class="localizable" data-text="Apertium Text-to-Speech">Apertium Text-to-Speech</title>
 </head>
 <body>
     <div id="headerBar">
@@ -22,22 +22,21 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
             <div id="headerItems">
                 <img src="./img/logo.png" alt="Apertium Logo" id="logo"/>
                 <div id="title">
-                    <span class="titleText">Apertium</span>
-                    <span class="titleText">Text-to-Speech</span>
+                    <span class="titleText localizable" data-text="Apertium">Apertium</span>
+                    <span class="titleText localizable" data-text="Text-to-Speech">Text-to-Speech</span>
                 </div>
             </div>
         </div>
     </div>
     <div id="content">
         <!-- dropdown is updated in script.js -->
-        <select id="lang" class="roundEdges" onchange="disableAudio()">
-            <option id="zzz">Dummy</option>
-            <option id="chv">Chuvash</option>
+        <select id="textLangs" class="roundEdges" onchange="disableAudio()">
+            <option class="localizable" data-text="chv">Chuvash</option>
         </select>
         <textarea id="input" class="roundEdges" oninput="disableAudio()"></textarea>
 
         <div id="audio">
-            <button type="button" class="roundEdges" onclick="loadAudio()" id="listen">Listen</button>
+            <button type="button" class="roundEdges localizable" onclick="loadAudio()" id="listen" data-text="Listen">Listen</button>
             <img src="./img/loading.gif" alt="loading" id="loadingCircle" class="hidden"/>
             <!-- audio element is updated in script.js -->
             <audio id="audioElement" controls class="loadable hidden roundEdges"></audio>
@@ -46,14 +45,20 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
             </a>
         </div>
 
-        <button id="about" class="roundEdges" onclick="showAboutModal()">About</button>
+        <div id="footer">
+            <select id="pageLangs" class="roundEdges" onchange="localize()">
+                <option class="localizable" data-text="eng">English</option>
+                <option class="localizable" data-text="chv">Chuvash</option>
+            </select>
+            <button id="about" class="roundEdges localizable" onclick="showAboutModal()" data-text="About">About</button>
+        </div>
         <div id="aboutModalContainer" class="hidden">
             <div id="aboutModal" class="roundEdges">
                 <div id="aboutHeader">
-                    <span>About</span>
+                    <span class="localizable" data-text="About">About</span>
                     <span id="closeModal" onclick="hideAboutModal()">&times;</span>
                 </div>
-                <span>
+                <span class="localizable" data-text="AboutText">
 <p>
 <a href="http://wiki.apertium.org/wiki/Main_Page">Apertium</a> is a
 free/open-source language technology platform. This is Apertium TTS Web, a web

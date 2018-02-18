@@ -7,7 +7,7 @@
 # Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from json import dump
+from json import dumps
 from os import remove
 from shlex import split
 from subprocess import Popen
@@ -20,7 +20,7 @@ PORT = 2738
 
 tts_models = {
     'chv': 'python2.7 ./Ossian/scripts/speak.py -l chv -s news -o {0} naive_01_nn {1}',
-    'zzz': 'cp ./chuvash_test3.wav {0}'
+#    'zzz': 'cp ./chuvash_test3.wav {0}'  # uncomment for dummy audio testing
 }
 
 sanitizers = {
@@ -31,13 +31,6 @@ sanitizers = {
         'ҫ': ['ç']
     },
     'zzz': {}
-}
-
-lang_names = {
-    'eng': {
-        'chv': 'Chuvash',
-#        'zzz': 'Dummy'  # uncomment for dummy audio testing
-    }
 }
 
 
@@ -82,27 +75,19 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
         synth_file.close()
         remove(input_file.name)
 
-    def handle_list(self, params):
-        if 'lang' not in params:
-            self.send_error(400, 'Missing lang parameter, e.g. lang=eng')
-            return
-        lang = params['lang'][0]
-        if lang not in lang_names:
-            self.send_error(501, 'That language is not supported')
-            return
-
+    def handle_list(self):
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        dump(lang_names[lang], self.wfile)
+        self.wfile.write(dumps(list(tts_models.keys())).encode('utf-8'))
 
     def do_GET(self):
         req = urlparse(self.path)
         if req.path == '/tts':
             self.handle_tts(parse_qs(req.query))
         elif req.path == '/list':
-            self.handle_list(parse_qs(req.query))
+            self.handle_list()
         else:
             self.send_error(404, 'Endpoints are /tts and /list')
 
