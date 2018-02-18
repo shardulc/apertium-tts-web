@@ -12,7 +12,7 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
     <link type="text/css" href="./style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">
     <link href="./img/favicon.ico" rel="shortcut icon">
-    <script src="./script.js"></script>
+    <script src="./script.js" async></script>
 
     <title class="localizable" data-text="Apertium Text-to-Speech">Apertium Text-to-Speech</title>
 </head>
@@ -29,7 +29,7 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
         </div>
     </div>
     <div id="content">
-        <!-- dropdown is updated in script.js -->
+        <!-- dropdown is updated in script.js, hard-coded until JS is loaded -->
         <select id="textLangs" class="roundEdges" onchange="disableAudio()">
             <option class="localizable" data-text="chv">Chuvash</option>
         </select>
