@@ -69,7 +69,7 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
         synth_file.close()
         remove(input_file.name)
 
-    def handle_list(self):
+    def handle_list(self, params):
         if 'lang' not in params:
             self.send_error(400, 'Missing lang parameter, e.g. lang=eng')
             return
@@ -89,7 +89,7 @@ class TTSRequestHandler(BaseHTTPRequestHandler):
         if req.path == '/tts':
             self.handle_tts(parse_qs(req.query))
         elif req.path == '/list':
-            self.handle_list()
+            self.handle_list(parse_qs(req.query))
         else:
             self.send_error(404, 'Endpoints are /tts and /list')
 
