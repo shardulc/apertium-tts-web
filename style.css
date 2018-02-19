@@ -102,6 +102,14 @@ select:hover, select:active {
     top: 16px;
 }
 
+#pageLangs:hover, #pageLangs:active {
+    background-color: #c5c5c5;
+    background-image: url("./img/arrow_black.png");
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    color: #000000;
+}
+
 #headerBar {
     background-color: #3f3f3f;
     display: -webkit-box;
