@@ -7,10 +7,11 @@ that produces audio from text. <insert link when available>
 
 ### Web Interface
 
-The files `index.html`, `style.css`, and `script.js` form the web interface.
-These can be served by any web server with no further steps. For example, if
-Python is installed, the command `python -m http.server 80` run from this
-directory will serve the web interface on port 80.
+The files `index.html`, `style.css`, and `script.js` form the web interface,
+along with small images contained in the `img` directory. These can be served by
+any web server with no further steps. For example, if Python is installed, the
+command `python -m http.server 80` run from this directory will serve the web
+interface on port 80.
 
 If the user is willing to change the [default server][2] to a local instance and
 forfeit the Google web font "Ubuntu", then the web interface can function
