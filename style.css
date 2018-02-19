@@ -211,7 +211,7 @@ select:hover, select:active {
 }
 
 #input {
-    border: 1px solid #cccccc;
+    border: 1px solid #dcdcdc;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     font-family: inherit;
@@ -219,14 +219,13 @@ select:hover, select:active {
     min-height: 200px;
     padding: 5px;
     resize: vertical;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    -webkit-transition: -webkit-box-shadow 0.2s ease-in-out;
+    -o-transition: box-shadow 0.2s ease-in-out;
+    transition: box-shadow 0.2s ease-in-out;
     width: 100%;
 }
 
 #input:focus {
-    border: 1px solid #dcdcdc;
     -webkit-box-shadow: 0 0 5px #dcdcdc;
             box-shadow: 0 0 5px #dcdcdc;
 }
