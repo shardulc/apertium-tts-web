@@ -53,6 +53,7 @@ select {
     -webkit-box-shadow: unset;
             box-shadow: unset;
     font-family: inherit;
+    height: 30px;
     padding: 5px 36px 5px 8px;
 }
 
@@ -95,6 +96,12 @@ select:hover, select:active {
     visibility: hidden;
 }
 
+#pageLangs {
+    position: fixed;
+    right: 16px;
+    top: 16px;
+}
+
 #headerBar {
     background-color: #3f3f3f;
     display: -webkit-box;
@@ -121,6 +128,7 @@ select:hover, select:active {
         -ms-flex-pack: start;
             justify-content: flex-start;
     max-width: 600px;
+    min-height: 100px;
     padding: 0 20px;
     width: 100%;
 }
@@ -143,6 +151,7 @@ select:hover, select:active {
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
+    margin-bottom: 10px;
 }
 
 #logo {
@@ -228,7 +237,7 @@ select:hover, select:active {
     -webkit-flex-flow: row wrap;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
-    height: 28px;
+    height: 30px;
     -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
         -ms-flex-pack: end;
@@ -256,21 +265,11 @@ select:hover, select:active {
     transition: all 0.2s ease-in-out;
 }
 
-#footer {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+#about {
+    -webkit-align-self: flex-end;
+        -ms-flex-item-align: end;
+            align-self: flex-end;
     margin-top: auto;
-    width: 100%;
-}
-
-#pageLang {
-    height: 30px;
 }
 
 #aboutModalContainer {

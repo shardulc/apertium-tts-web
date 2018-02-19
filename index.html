@@ -17,6 +17,11 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
     <title class="localizable" data-text="Apertium Text-to-Speech">Apertium Text-to-Speech</title>
 </head>
 <body>
+    <select id="pageLangs" class="roundEdges" onchange="localize()">
+        <option data-text="eng">English</option>
+        <option data-text="chv">Чӑвашла</option>
+        <option data-text="mar">मराठी</option>
+    </select>
     <div id="headerBar">
         <div id="headerItemContainer">
             <div id="headerItems">
@@ -45,14 +50,7 @@ Copyright (C) 2018, Shardul Chiplunkar <shardul.chiplunkar@gmail.com>
             </a>
         </div>
 
-        <div id="footer">
-            <select id="pageLangs" class="roundEdges" onchange="localize()">
-                <option class="localizable" data-text="eng">English</option>
-                <option class="localizable" data-text="chv">Chuvash</option>
-                <option class="localizable" data-text="mar">Marathi</option>
-            </select>
-            <button id="about" class="roundEdges localizable" onclick="showAboutModal()" data-text="About">About</button>
-        </div>
+        <button id="about" class="roundEdges localizable" onclick="showAboutModal()" data-text="About">About</button>
         <div id="aboutModalContainer" class="hidden">
             <div id="aboutModal" class="roundEdges">
                 <div id="aboutHeader">

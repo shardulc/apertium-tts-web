@@ -17,8 +17,6 @@ var strings = {
         'Apertium': 'Apertium',
         'Text-to-Speech': 'Text-to-Speech',
         'chv': 'Chuvash',
-        'eng': 'English',
-        'mar': 'Marathi',
         'Listen': 'Listen',
         'About': 'About',
         'AboutText':
@@ -35,8 +33,6 @@ var strings = {
         'Apertium': 'अपर्टियम',
         'Text-to-Speech': 'ई-वाचा',
         'chv': 'चुवाश',
-        'eng': 'इंग्रजी',
-        'mar': 'मराठी',
         'Listen': 'ऐका',
         'About': 'माहिती'
     }
@@ -44,6 +40,7 @@ var strings = {
 
 window.onload = function() {
     getTextLangs();
+    localize();
 }
 
 function getTextLangs() {
